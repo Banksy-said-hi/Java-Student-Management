@@ -26,4 +26,9 @@ public class InMemoryPersonRepository {
     public Boolean addPerson(Student student) {
         return storage.add(student);
     }
+
+    public void removeStudentByMatriculationNumber(String matriculationNumber) {
+        storage.removeIf(student -> matriculationNumber.equals(student.getMatriculationNumber()));
+    }
+
 }

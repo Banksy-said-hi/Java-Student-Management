@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +21,12 @@ public class StudentController {
         this.personRepository = personRepository;
     }
 
+    @PostMapping("/delete")
+    public String deleteStudent(@RequestParam String matriculationNumber) {
+        personRepository.removeStudentByMatriculationNumber(matriculationNumber);
+        return "redirect:/student";  // Redirect back to the students list page
+    }
+
     @GetMapping
     public String displayAllStudents(Model model) {
         // Add a new student object to bind to the form
@@ -36,15 +39,8 @@ public class StudentController {
         model.addAttribute("students", allStudents);
 
         // Print the students to the console
-//        System.out.println(allStudents);
         return "student"; // assuming "index" is the name of the template displaying the students
     }
-
-//    @GetMapping("/form")
-//    public String showForm(Model model) {
-//        model.addAttribute("student", new Student());
-//        return "student-form";
-//    }
 
     @PostMapping("/add")
     public String addStudent(@ModelAttribute Student student) {
@@ -69,7 +65,6 @@ public class StudentController {
         }
 
         // Redirecting back to the main student page (or a success page) after adding the student
-//        return "student";
         return "redirect:/student";
     }
 }

@@ -1,5 +1,6 @@
 package at.aau.studentevidence.domain;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class Student extends Person {
@@ -21,6 +22,19 @@ public class Student extends Person {
 
     public void setMatriculationNumber(String matriculationNumber) {
         this.matriculationNumber = matriculationNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(matriculationNumber, student.matriculationNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(matriculationNumber);
     }
 }
 
