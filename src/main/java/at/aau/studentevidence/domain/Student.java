@@ -4,11 +4,12 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Student extends Person {
-    private String matriculationNumber;
+    private int matriculationNumber;
+    private static int counter = 0;
 
     // Constructors
     public Student() {
-        this.matriculationNumber = UUID.randomUUID().toString();
+        this.matriculationNumber = ++counter;
     }
 
     public Student(String name, String phoneNumber, String emailAddress) {
@@ -16,14 +17,16 @@ public class Student extends Person {
     }
 
     // Getter and setter for matriculationNumber
-    public String getMatriculationNumber() {
+    public int getMatriculationNumber() {
         return matriculationNumber;
     }
 
-    public void setMatriculationNumber(String matriculationNumber) {
-        this.matriculationNumber = matriculationNumber;
-    }
+//    public void setMatriculationNumber(String matriculationNumber) {
+//        this.matriculationNumber = matriculationNumber;
+//    }
 
+    // This function needs to be studied more to find more about
+    // the goal it serves as well as its component
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

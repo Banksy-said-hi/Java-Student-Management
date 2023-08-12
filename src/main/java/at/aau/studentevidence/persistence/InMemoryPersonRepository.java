@@ -17,18 +17,41 @@ import java.util.stream.Collectors;
 
 @Component
 public class InMemoryPersonRepository {
-    private final Set<Student> storage = new HashSet<>();
+    private final Set<Person> storage = new HashSet<>();
 
-    public List<Student> findAll() {
+    public List<Person> findAll() {
         return new ArrayList<>(storage);
     }
 
-    public Boolean addPerson(Student student) {
-        return storage.add(student);
+    public Boolean addPerson(Person person) {
+        return storage.add(person);
     }
 
-    public void removeStudentByMatriculationNumber(String matriculationNumber) {
-        storage.removeIf(student -> matriculationNumber.equals(student.getMatriculationNumber()));
+    public void removePersonById(UUID id) {
+        storage.removeIf(person -> id.equals(person.getId()));
     }
 
+    // You may need to add a method to find a person by their ID if "id" is a field in your Person class.
+    public Person findPersonById(UUID id) {
+        return storage.stream()
+                .filter(person -> id.equals(person.getId()))
+                .findFirst()
+                .orElse(null);
+    }
+
+     public List<Student> findAllStudents() {
+         return storage.stream()
+                       .filter(person -> person instanceof Student)
+                       .map(person -> (Student) person)
+                       .collect(Collectors.toList());
+     }
+
+    public boolean doesStudentExist(Student student) {
+        return storage.stream()
+                .anyMatch(s -> s.getName().equals(student.getName())
+                        && s.getEmailAddress().equals(student.getEmailAddress())
+                        && s.getPhoneNumber().equals(student.getPhoneNumber()));
+    }
 }
+
+

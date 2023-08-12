@@ -122,6 +122,8 @@
     <input type="submit" value="Submit">
 </form>
 
+
+
 <!--<h2>All Registered Students</h2>-->
 <table>
     <thead>
@@ -129,7 +131,8 @@
         <th>Name</th>
         <th>Email Address</th>
         <th>Phone Number</th>
-        <th>Matriculation Number</th>
+        <th>Person ID</th> <!-- New column header for ID -->
+        <th>Student Matriculation Number</th>
         <th>Action</th>
     </tr>
     </thead>
@@ -138,16 +141,19 @@
         <td th:text="${student.name}"></td>
         <td th:text="${student.emailAddress}"></td>
         <td th:text="${student.phoneNumber}"></td>
+        <td th:text="${student.id}"></td>
         <td th:text="${student.matriculationNumber}"></td> <!-- Added cell for Matriculation Number -->
         <td>
             <!-- Delete button that sends a POST request to delete the student -->
             <form th:action="@{/student/delete}" method="post">
-                <input type="hidden" name="matriculationNumber" th:value="${student.matriculationNumber}"/>
+                <input type="hidden" name="id" th:value="${student.id}"/>
                 <button type="submit" onclick="return confirm('Are you sure you want to delete this student?');">Delete</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+<!--<h2>All Registered Students</h2>-->
+
 </body>
 </html>

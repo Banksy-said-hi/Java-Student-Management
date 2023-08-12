@@ -3,8 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>Error</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;  /* Set direction to column to separate box and button */
+        }
+
+        /* Styles for the container */
+        .error-container {
+            background-color: #ffffff;  /* White background */
+            padding: 30px;
+            border-radius: 15px;  /* Curved corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  /* Slight shadow for depth */
+            text-align: center;  /* Center the text within the container */
+            margin-bottom: 30px;  /* Added margin for distance */
+        }
+
+        /* Styles for the h1 tag */
+        h1 {
+            margin: 0;
+            color: #e74c3c;  /* Giving it a red-ish color */
+        }
+        .redirect-button {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .redirect-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
 </head>
 <body>
-This error indicates you messed up something
+<div class="error-container">
+    <h1>
+        Sorry! adding a student that already exists is not allowed :(
+    </h1>
+</div>
+<!-- Button moved outside of the container -->
+<a href="/student" class="redirect-button">Go Back to Students</a>
 </body>
 </html>
+
