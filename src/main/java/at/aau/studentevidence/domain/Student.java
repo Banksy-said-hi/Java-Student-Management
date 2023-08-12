@@ -1,29 +1,41 @@
 package at.aau.studentevidence.domain;
 
+import java.time.LocalDate;
 import java.util.Objects;
-import java.util.UUID;
 
 public class Student extends Person {
-    private int matriculationNumber;
-    private static int counter = 0;
+    private String matriculationNumber;
+    private static int counter = 1;
 
     // Constructors
     public Student() {
-        this.matriculationNumber = ++counter;
+        // The default constructor will have a default matriculation number for demonstration
+        this.matriculationNumber = "STU" + counter;
+        counter++;
     }
 
     public Student(String name, String phoneNumber, String emailAddress) {
         super(name, phoneNumber, emailAddress); // Calling the constructor of the superclass (Person)
+//        this.matriculationNumber = generateMatriculationNumber(name, phoneNumber);
     }
+
+//    private String generateMatriculationNumber(String name, String phoneNumber) {
+//        // Extracting the first 4 letters of the name
+//        String firstFourLetters = name.length() >= 4 ? name.substring(0, 4).toUpperCase() : name.toUpperCase();
+//
+//        // Extracting the last 5 digits of the phone number
+//        String lastFiveDigits = phoneNumber.length() >= 5 ? phoneNumber.substring(phoneNumber.length() - 5) : phoneNumber;
+//
+//        // Getting the current year
+//        int currentYear = LocalDate.now().getYear();
+//
+//        return firstFourLetters + lastFiveDigits + currentYear;
+//    }
 
     // Getter and setter for matriculationNumber
-    public int getMatriculationNumber() {
+    public String getMatriculationNumber() {
         return matriculationNumber;
     }
-
-//    public void setMatriculationNumber(String matriculationNumber) {
-//        this.matriculationNumber = matriculationNumber;
-//    }
 
     // This function needs to be studied more to find more about
     // the goal it serves as well as its component
