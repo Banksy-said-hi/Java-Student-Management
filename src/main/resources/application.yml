@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+spring:
+  main:
+    banner-mode: off
+  profiles:
+    active: development
+  application:
+    name: studentevidence
+
+logging:
+  level:
+    org.springframework.web: DEBUG
