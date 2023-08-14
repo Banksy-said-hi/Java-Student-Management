@@ -17,6 +17,11 @@ public class StudentController {
 
     private final PersonService personService;
 
+    // This method will automatically add an empty student to the model for every request handled by this controller
+    @ModelAttribute("student")
+    public Student getEmptyStudent() {
+        return new Student();
+    }
     @Autowired
     public StudentController(PersonService personService) {
         this.personService = personService;
@@ -31,7 +36,7 @@ public class StudentController {
     @GetMapping
     public String displayAllStudents(Model model) {
         // Add a new student object to bind to the form
-        model.addAttribute("student", new Student());
+//        model.addAttribute("student", new Student());
 
         // Fetch the list of students to display in the table
         List<Student> allStudents = personService.getAllStudents();

@@ -49,11 +49,23 @@ public class InMemoryPersonRepository {
                        .collect(Collectors.toList());
      }
 
-    public boolean doesStudentExist(Student student) {
+     // Making sure a student with the same credentials does not exist
+     public boolean doesStudentExist(Student student) {
         return storage.stream()
                 .anyMatch(s -> s.getName().equals(student.getName())
                         && s.getEmailAddress().equals(student.getEmailAddress())
                         && s.getPhoneNumber().equals(student.getPhoneNumber()));
+    }
+
+    // Making sure a student with the same Person ID does not already exist
+    public boolean personExistsById(UUID id) {
+        return storage.stream().anyMatch(person -> id.equals(person.getId()));
+    }
+
+    public boolean doesMatriculationNumberExist(String matriculationNumber) {
+        return storage.stream()
+                .filter(person -> person instanceof Student) // Filter only instances of Student
+                .anyMatch(student -> matriculationNumber.equals(((Student) student).getMatriculationNumber()));
     }
 }
 

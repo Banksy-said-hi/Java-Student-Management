@@ -23,28 +23,26 @@ public class PersonService {
         this.repository = repository;
     }
 
-//    public Person findById(String id) {
-//        // Converting the String ID to UUID
-//        UUID personId = UUID.fromString(id);
-//        return repository.findPersonById(personId);
-//    }
+    public void addPerson(Person person) {
+        // Checking if a person with the same ID exists
+        if (repository.personExistsById(person.getId())) {
+            throw new IllegalArgumentException("A person with the same ID already exists in the repository");
+        }
+
+        // Checking success of the operation
+        if (!repository.addPerson(person)) {
+            throw new RuntimeException("Failed to add the person to the repository");
+        }
+    }
 
     public List<Student> getAllStudents() {
         return repository.findAllStudents();
     }
 
-//    public List<Person> getAllStaff() {
-//        // Assuming there's a method to get all staff members in your repository.
-//        // If not, you'll need to implement this.
-//        return repository.findAllStaff();
-//    }
-
-    public void addPerson(Person person) {
-        // Here I'm assuming `addPerson` in your repository returns a boolean indicating the success.
-        // If it throws an exception or behaves differently, you'll need to adjust this.
-        if (!repository.addPerson(person)) {
-            throw new RuntimeException("Failed to add the person to the repository");
-        }
+    public void removePerson(String id) {
+        // Converting the String ID to UUID
+        UUID personId = UUID.fromString(id);
+        repository.removePersonById(personId);
     }
 
 //    public void updatePerson(Person person) {
@@ -55,11 +53,17 @@ public class PersonService {
 //        }
 //    }
 
-    public void removePerson(String id) {
-        // Converting the String ID to UUID
-        UUID personId = UUID.fromString(id);
-        repository.removePersonById(personId);
-    }
+//    public List<Person> getAllStaff() {
+//        // Assuming there's a method to get all staff members in your repository.
+//        // If not, you'll need to implement this.
+//        return repository.findAllStaff();
+//    }
+
+//    public Person findById(String id) {
+//        // Converting the String ID to UUID
+//        UUID personId = UUID.fromString(id);
+//        return repository.findPersonById(personId);
+//    }
 
     public boolean doesStudentExist(Student student) {
         return repository.doesStudentExist(student);
