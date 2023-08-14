@@ -19,10 +19,13 @@ import java.util.stream.Collectors;
 public class InMemoryPersonRepository {
     private final Set<Person> storage = new HashSet<>();
 
-    public List<Person> findAll() {
-        return new ArrayList<>(storage);
-    }
+//    public List<Person> findAll() {
+//        return new ArrayList<>(storage);
+//    }
 
+    // ???
+    // Warning
+    // no input sanitization has been made
     public Boolean addPerson(Person person) {
         return storage.add(person);
     }

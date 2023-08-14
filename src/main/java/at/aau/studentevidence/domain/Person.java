@@ -27,6 +27,7 @@ public abstract class Person {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
+        this.id = UUID.randomUUID();
     }
 
     public String getName() {
