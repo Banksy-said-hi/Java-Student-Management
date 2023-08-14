@@ -19,9 +19,7 @@ import java.util.stream.Collectors;
 public class InMemoryPersonRepository {
     private final Set<Person> storage = new HashSet<>();
 
-//    public List<Person> findAll() {
-//        return new ArrayList<>(storage);
-//    }
+    public List<Person> findAll() { return new ArrayList<>(storage);}
 
     // ???
     // Warning
@@ -29,15 +27,36 @@ public class InMemoryPersonRepository {
     public Boolean addPerson(Person person) {
         return storage.add(person);
     }
+    public boolean updatePerson(Person personToUpdate) {
+        System.out.println(personToUpdate.getName());
+//        if (personToUpdate == null || personToUpdate.getId() == null) {
+//            return false;
+//        }
+
+        // Find the person in the storage based on the id
+        for (Person existingPerson : storage) {
+            if (personToUpdate.getId().equals(existingPerson.getId())) {
+                // Update the attributes of the found person
+                existingPerson.setName(personToUpdate.getName());
+                existingPerson.setEmailAddress(personToUpdate.getEmailAddress());
+                existingPerson.setPhoneNumber(personToUpdate.getPhoneNumber());
+
+                return true;  // Successfully updated
+            }
+        }
+        return false; // No person found with the given id
+    }
+
 
     public void removePersonById(UUID id) {
         storage.removeIf(person -> id.equals(person.getId()));
     }
 
     // You may need to add a method to find a person by their ID if "id" is a field in your Person class.
-    public Person findPersonById(UUID id) {
+    public Student findStudentById(UUID id) {
         return storage.stream()
-                .filter(person -> id.equals(person.getId()))
+                .filter(person -> person instanceof Student && id.equals(person.getId()))
+                .map(person -> (Student) person) // Cast the found Person object to Student
                 .findFirst()
                 .orElse(null);
     }

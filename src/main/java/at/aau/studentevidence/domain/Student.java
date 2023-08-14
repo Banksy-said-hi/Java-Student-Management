@@ -1,5 +1,4 @@
 package at.aau.studentevidence.domain;
-import at.aau.studentevidence.services.PersonService; // Ensure you import the service class
 
 import java.util.Objects;
 import java.util.Random;

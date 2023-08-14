@@ -45,13 +45,11 @@ public class PersonService {
         repository.removePersonById(personId);
     }
 
-//    public void updatePerson(Person person) {
-//        // Assuming there's a method to update a person in your repository.
-//        // If not, you'll need to implement this.
-//        if (!repository.updatePerson(person)) {
-//            throw new RuntimeException("Failed to update the person in the repository");
-//        }
-//    }
+    public void updatePerson(Person person) {
+        if (!repository.updatePerson(person)) {
+            throw new RuntimeException("Failed to update the person in the repository");
+        }
+    }
 
 //    public List<Person> getAllStaff() {
 //        // Assuming there's a method to get all staff members in your repository.
@@ -59,11 +57,9 @@ public class PersonService {
 //        return repository.findAllStaff();
 //    }
 
-//    public Person findById(String id) {
-//        // Converting the String ID to UUID
-//        UUID personId = UUID.fromString(id);
-//        return repository.findPersonById(personId);
-//    }
+    public Student findStudentById(UUID id) {
+        return repository.findStudentById(id);
+    }
 
     public boolean doesStudentExist(Student student) {
         return repository.doesStudentExist(student);
