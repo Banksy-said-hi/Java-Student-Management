@@ -64,19 +64,18 @@
 <h1>Editing Student with ID: <span th:text="${studentId}"></span></h1>
 
 <form th:action="@{/student/update}" method="post">
-<!--    <label for="id">ID:</label>-->
     <input type="hidden" id="id" th:name="id" th:value="${studentId}" required>
 
     <label for="name">Name:</label>
     <input type="text" id="name" th:field="*{student.name}" required>
 
     <label for="phoneNumber">Phone Number:</label>
-    <input type="text" id="phoneNumber" th:field="*{student.phoneNumber}" required>
+    <input type="text" id="phoneNumber" th:field="*{student.phoneNumber}" pattern="^\d+$" required>
 
     <label for="emailAddress">Email Address:</label>
-    <input type="email" id="emailAddress" th:field="*{student.emailAddress}" required>
+    <input type="email" id="emailAddress" th:field="*{student.emailAddress}"  required>
 
-    <input type="submit" value="Confirm Changes">
+    <input type="submit" value="Submit">
 </form>
 </body>
 
