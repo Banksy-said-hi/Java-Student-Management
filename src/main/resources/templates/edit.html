@@ -64,7 +64,8 @@
 <h1>Editing Student with ID: <span th:text="${studentId}"></span></h1>
 
 <form th:action="@{/student/update}" method="post">
-    <input type="hidden" th:field="*{id}"> <!-- Hidden field to send the student's ID back -->
+<!--    <label for="id">ID:</label>-->
+    <input type="hidden" id="id" th:name="id" th:value="${studentId}" required>
 
     <label for="name">Name:</label>
     <input type="text" id="name" th:field="*{student.name}" required>

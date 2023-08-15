@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
  * @author Markus Schneider
  * @since 23.05.2022
  */
+//10f529b9-475f-4845-bcd1-7ecffa45caa9
 
 @Component
 public class InMemoryPersonRepository {
@@ -27,29 +28,44 @@ public class InMemoryPersonRepository {
     public Boolean addPerson(Person person) {
         return storage.add(person);
     }
+
+    public void removePersonById(UUID id) {
+        storage.removeIf(person -> id.equals(person.getId()));
+    }
+
+
     public boolean updatePerson(Person personToUpdate) {
-        System.out.println(personToUpdate.getName());
-//        if (personToUpdate == null || personToUpdate.getId() == null) {
-//            return false;
-//        }
+        System.out.println("Person reached the memory successfully");
+        System.out.println("ID at the Memory: " + personToUpdate.getId());
+        System.out.println("=================");
+        System.out.println("Inspecting the storage");
+        System.out.println("Current storage: " + storage);
+
+        Person personToRemove = null;
 
         // Find the person in the storage based on the id
         for (Person existingPerson : storage) {
             if (personToUpdate.getId().equals(existingPerson.getId())) {
-                // Update the attributes of the found person
-                existingPerson.setName(personToUpdate.getName());
-                existingPerson.setEmailAddress(personToUpdate.getEmailAddress());
-                existingPerson.setPhoneNumber(personToUpdate.getPhoneNumber());
-
-                return true;  // Successfully updated
+                personToRemove = existingPerson;
+                break;  // Break out of the loop once the person is found
             }
         }
+
+        if (personToRemove != null) {
+            // Remove the old person
+            storage.remove(personToRemove);
+            // Add the updated person
+            storage.add(personToUpdate);
+
+            System.out.println("Inspecting the storage after update");
+            System.out.println("Current storage: " + storage);
+            return true;  // Successfully updated
+        }
+
+        System.out.println("Inspecting the storage again");
+        System.out.println("Current storage: " + storage);
+
         return false; // No person found with the given id
-    }
-
-
-    public void removePersonById(UUID id) {
-        storage.removeIf(person -> id.equals(person.getId()));
     }
 
     // You may need to add a method to find a person by their ID if "id" is a field in your Person class.
@@ -81,11 +97,11 @@ public class InMemoryPersonRepository {
         return storage.stream().anyMatch(person -> id.equals(person.getId()));
     }
 
-    public boolean doesMatriculationNumberExist(String matriculationNumber) {
-        return storage.stream()
-                .filter(person -> person instanceof Student) // Filter only instances of Student
-                .anyMatch(student -> matriculationNumber.equals(((Student) student).getMatriculationNumber()));
-    }
+//    public boolean doesMatriculationNumberExist(String matriculationNumber) {
+//        return storage.stream()
+//                .filter(person -> person instanceof Student) // Filter only instances of Student
+//                .anyMatch(student -> matriculationNumber.equals(((Student) student).getMatriculationNumber()));
+//    }
 }
 
 

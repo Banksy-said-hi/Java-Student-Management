@@ -58,6 +58,8 @@ public abstract class Person {
         return id;
     }
 
+    public void setId(UUID id) { this.id = id; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true; // If they reference the same object
@@ -73,4 +75,13 @@ public abstract class Person {
         return id != null ? id.hashCode() : 0;
     }
 
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
+    }
 }

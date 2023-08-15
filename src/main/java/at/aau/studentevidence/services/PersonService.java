@@ -46,9 +46,18 @@ public class PersonService {
     }
 
     public void updatePerson(Person person) {
-        if (!repository.updatePerson(person)) {
-            throw new RuntimeException("Failed to update the person in the repository");
+        System.out.println("Person reached service layer");
+//        System.out.println(person.getName());
+//        System.out.println(person.getEmailAddress());
+//        System.out.println(person.getPhoneNumber());
+        System.out.println("ID at the Service" + person.getId());
+        System.out.println("=================");
+
+
+        if (repository.updatePerson(person)) {
+            return;
         }
+        throw new RuntimeException("Failed to update the person in the repository");
     }
 
 //    public List<Person> getAllStaff() {
