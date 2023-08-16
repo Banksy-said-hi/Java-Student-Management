@@ -15,9 +15,7 @@ import java.util.UUID;
  */
 @Service
 public class PersonService {
-
     private final InMemoryPersonRepository repository;
-
     @Autowired
     public PersonService(InMemoryPersonRepository repository) {
         this.repository = repository;
@@ -46,14 +44,6 @@ public class PersonService {
     }
 
     public void updatePerson(Person person) {
-        System.out.println("Person reached service layer");
-//        System.out.println(person.getName());
-//        System.out.println(person.getEmailAddress());
-//        System.out.println(person.getPhoneNumber());
-        System.out.println("ID at the Service" + person.getId());
-        System.out.println("=================");
-
-
         if (repository.updatePerson(person)) {
             return;
         }

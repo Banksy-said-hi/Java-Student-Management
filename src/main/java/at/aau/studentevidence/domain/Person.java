@@ -6,11 +6,8 @@ import java.util.UUID;
  * @author Markus Schneider
  * @since 23.05.2022
  */
+
 //todo derive class Student and class Staff and implement specific properties and methods
-
-//todo implement properties and their getters/setters
-
-//todo implement methods equals, hashCode and toString
 public abstract class Person {
 
     private UUID id;
@@ -30,6 +27,7 @@ public abstract class Person {
         this.id = UUID.randomUUID();
     }
 
+    //todo implement properties and their getters/setters
     public String getName() {
         return name;
     }
@@ -60,6 +58,9 @@ public abstract class Person {
 
     public void setId(UUID id) { this.id = id; }
 
+
+
+    //todo implement methods equals, hashCode and toString
     @Override
     public boolean equals(Object o) {
         if (this == o) return true; // If they reference the same object

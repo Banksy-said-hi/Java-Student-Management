@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
  * @author Markus Schneider
  * @since 23.05.2022
  */
-//10f529b9-475f-4845-bcd1-7ecffa45caa9
 
 @Component
 public class InMemoryPersonRepository {
