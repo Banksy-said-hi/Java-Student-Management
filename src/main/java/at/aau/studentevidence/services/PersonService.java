@@ -51,8 +51,6 @@ public class PersonService {
     }
 
 //    public List<Person> getAllStaff() {
-//        // Assuming there's a method to get all staff members in your repository.
-//        // If not, you'll need to implement this.
 //        return repository.findAllStaff();
 //    }
 

@@ -58,8 +58,6 @@ public abstract class Person {
 
     public void setId(UUID id) { this.id = id; }
 
-
-
     //todo implement methods equals, hashCode and toString
     @Override
     public boolean equals(Object o) {

@@ -34,12 +34,6 @@ public class InMemoryPersonRepository {
 
 
     public boolean updatePerson(Person personToUpdate) {
-        System.out.println("Person reached the memory successfully");
-        System.out.println("ID at the Memory: " + personToUpdate.getId());
-        System.out.println("=================");
-        System.out.println("Inspecting the storage");
-        System.out.println("Current storage: " + storage);
-
         Person personToRemove = null;
 
         // Find the person in the storage based on the id
@@ -56,8 +50,6 @@ public class InMemoryPersonRepository {
             // Add the updated person
             storage.add(personToUpdate);
 
-            System.out.println("Inspecting the storage after update");
-            System.out.println("Current storage: " + storage);
             return true;  // Successfully updated
         }
 
@@ -67,7 +59,6 @@ public class InMemoryPersonRepository {
         return false; // No person found with the given id
     }
 
-    // You may need to add a method to find a person by their ID if "id" is a field in your Person class.
     public Student findStudentById(UUID id) {
         return storage.stream()
                 .filter(person -> person instanceof Student && id.equals(person.getId()))

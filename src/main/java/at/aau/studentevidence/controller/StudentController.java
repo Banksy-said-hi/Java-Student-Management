@@ -7,21 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.PrintStream;
 import java.util.List;
 import java.util.UUID;
-// d6ead08d-cc07-4a36-9efe-838db9edca10
 @Controller
 @RequestMapping("/student")
 public class StudentController {
 
     private final PersonService personService;
-
-    // This method will automatically add an empty student to the model for every request handled by this controller
-//    @ModelAttribute("student")
-//    public Student getEmptyStudent() {
-//        return new Student();
-//    }
 
     @Autowired
     public StudentController(PersonService personService) {
@@ -35,7 +27,7 @@ public class StudentController {
         System.out.println("found student by its ID" + student);
 
         if (student == null) {
-            return "error";  // You can handle this more gracefully if needed.
+            return "error";
         }
 
         model.addAttribute("student", student);
@@ -53,12 +45,8 @@ public class StudentController {
         // Check if the student object has necessary attributes
         if (student.getName() == null || student.getEmailAddress() == null || student.getPhoneNumber() == null) {
             System.out.println("Student details are incomplete");
-            return "error"; // or redirect to another page with a proper message
+            return "error";
         }
-
-        System.out.println("ID at the second pinpoint of the update Controller" + student.getId());
-        System.out.println("=================");
-
 
         // Update the student in the storage
         try {
@@ -67,7 +55,6 @@ public class StudentController {
             System.out.println("Error in updating student: " + e.getMessage());
             return "error";
         }
-//
         return "redirect:/student";
     }
 
@@ -82,7 +69,7 @@ public class StudentController {
         // Add students to the model to display in the view
         model.addAttribute("students", allStudents);
 
-        return "student"; // assuming "student" is the name of the template displaying the students
+        return "student";
     }
 
     @PostMapping("/add")

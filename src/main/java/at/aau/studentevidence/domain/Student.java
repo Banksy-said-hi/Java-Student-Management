@@ -29,9 +29,6 @@ public class Student extends Person {
     }
 
 
-
-    // This function needs to be studied more to find more about
-    // the goal it serves as well as its component
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
