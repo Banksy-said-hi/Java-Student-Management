@@ -23,24 +23,31 @@ public class StudentController {
     @GetMapping("/edit/{id}")
     public String editStudent(@PathVariable UUID id, Model model) {
         System.out.println("request reached editStudent controller");
+
         Student student = personService.findStudentById(id);
-        System.out.println("found student by its ID" + student);
+        System.out.println("Student: " + student);
+
+        String matriculationNumber = student.getMatriculationNumber();
+        System.out.println("Student Matriculation Number: " + matriculationNumber);
 
         if (student == null) {
             return "error";
         }
 
         model.addAttribute("student", student);
-        model.addAttribute("studentId", id);  // Add the id separately
-        System.out.println("model :" + model);
+        model.addAttribute("studentId", id);  // Add the person id separately
+        model.addAttribute("matriculationNumber", matriculationNumber);  // Add the matriculation number separately
+
         return "edit";
     }
 
     @PostMapping("/update")
-    public String updateStudent(@ModelAttribute Student student, @RequestParam UUID id) {
+    public String updateStudent(@ModelAttribute Student student, @RequestParam UUID id, @RequestParam String matriculationNumber) {
         System.out.println("received student at update Controller" + student);
-        System.out.println("received id at update controller" + id);
+
+        // manually setting the id and matriculation number of the student
         student.setId(id);
+        student.setMatriculationNumber(matriculationNumber);
 
         // Check if the student object has necessary attributes
         if (student.getName() == null || student.getEmailAddress() == null || student.getPhoneNumber() == null) {

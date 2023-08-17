@@ -41,5 +41,9 @@ public class Student extends Person {
     public int hashCode() {
         return Objects.hash(matriculationNumber);
     }
+
+    public void setMatriculationNumber(String matriculationNumber) {
+        this.matriculationNumber = matriculationNumber;
+    }
 }
 
