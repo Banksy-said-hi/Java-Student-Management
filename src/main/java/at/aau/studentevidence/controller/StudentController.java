@@ -30,10 +30,11 @@ public class StudentController {
         String matriculationNumber = student.getMatriculationNumber();
         System.out.println("Student Matriculation Number: " + matriculationNumber);
 
-        if (student == null) {
-            return "error";
-        }
+//        if (student == null) {
+//            return "error";
+//        }
 
+        model.addAttribute("isStudent", true);
         model.addAttribute("student", student);
         model.addAttribute("studentId", id);  // Add the person id separately
         model.addAttribute("matriculationNumber", matriculationNumber);  // Add the matriculation number separately

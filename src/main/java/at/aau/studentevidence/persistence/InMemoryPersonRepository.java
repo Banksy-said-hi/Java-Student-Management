@@ -1,6 +1,7 @@
 package at.aau.studentevidence.persistence;
 
 import at.aau.studentevidence.domain.Person;
+import at.aau.studentevidence.domain.Staff;
 import at.aau.studentevidence.domain.Student;
 import org.springframework.stereotype.Component;
 
@@ -21,9 +22,8 @@ public class InMemoryPersonRepository {
 
     public List<Person> findAll() { return new ArrayList<>(storage);}
 
-    // ???
-    // Warning
-    // no input sanitization has been made
+
+    // INPUT SANITIZATION REQUIRED
     public Boolean addPerson(Person person) {
         return storage.add(person);
     }
@@ -59,6 +59,24 @@ public class InMemoryPersonRepository {
         return false; // No person found with the given id
     }
 
+     // Finding all the students stored on our memory
+    public List<Student> findAllStudents() {
+         return storage.stream()
+                       .filter(person -> person instanceof Student)
+                       .map(person -> (Student) person)
+                       .collect(Collectors.toList());
+    }
+
+
+     // Finding all the staff stored on our memory
+    public List<Staff> findAllStaff() {
+        return storage.stream()                      // 1
+                .filter(person -> person instanceof Staff) // 2
+                .map(person -> (Staff) person) // 3
+                .collect(Collectors.toList()); // 4
+    }
+
+
     public Student findStudentById(UUID id) {
         return storage.stream()
                 .filter(person -> person instanceof Student && id.equals(person.getId()))
@@ -67,19 +85,28 @@ public class InMemoryPersonRepository {
                 .orElse(null);
     }
 
-     public List<Student> findAllStudents() {
-         return storage.stream()
-                       .filter(person -> person instanceof Student)
-                       .map(person -> (Student) person)
-                       .collect(Collectors.toList());
-     }
+    public Staff findStaffById(UUID id) {
+        return storage.stream()
+                .filter(person -> person instanceof Staff && id.equals(person.getId()))
+                .map(person -> (Staff) person)
+                .findFirst()
+                .orElse(null);
+    }
 
-     // Making sure a student with the same credentials does not exist
+    // Making sure a student with the same credentials does not exist
      public boolean doesStudentExist(Student student) {
         return storage.stream()
                 .anyMatch(s -> s.getName().equals(student.getName())
                         && s.getEmailAddress().equals(student.getEmailAddress())
                         && s.getPhoneNumber().equals(student.getPhoneNumber()));
+    }
+
+    // Making sure a staff with the same credentials does not exist
+    public boolean doesStaffExist(Staff staff) {
+        return storage.stream()
+                .anyMatch(s -> s.getName().equals(staff.getName())
+                        && s.getEmailAddress().equals(staff.getEmailAddress())
+                        && s.getPhoneNumber().equals(staff.getPhoneNumber()));
     }
 
     // Making sure a student with the same Person ID does not already exist

@@ -1,6 +1,7 @@
 package at.aau.studentevidence.services;
 
 import at.aau.studentevidence.domain.Person;
+import at.aau.studentevidence.domain.Staff;
 import at.aau.studentevidence.domain.Student;
 import at.aau.studentevidence.persistence.InMemoryPersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,6 @@ public class PersonService {
         }
     }
 
-    public List<Student> getAllStudents() {
-        return repository.findAllStudents();
-    }
-
     public void removePerson(String id) {
         // Converting the String ID to UUID
         UUID personId = UUID.fromString(id);
@@ -50,16 +47,28 @@ public class PersonService {
         throw new RuntimeException("Failed to update the person in the repository");
     }
 
-//    public List<Person> getAllStaff() {
-//        return repository.findAllStaff();
-//    }
-
     public Student findStudentById(UUID id) {
         return repository.findStudentById(id);
     }
 
+    public Staff findStaffById(UUID id) {
+        return repository.findStaffById(id);
+    }
+
     public boolean doesStudentExist(Student student) {
         return repository.doesStudentExist(student);
+    }
+
+    public boolean doesStaffExist(Staff staff) {
+        return repository.doesStaffExist(staff);
+    }
+
+    public List<Student> getAllStudents() {
+        return repository.findAllStudents();
+    }
+
+    public List<Staff> getAllStaff() {
+        return repository.findAllStaff();
     }
 }
 

@@ -21,13 +21,17 @@
             margin-bottom: 20px;
         }
 
+        .button-container {
+            display: flex;
+            gap: 10px;
+        }
+
         .manage-button {
-            display: inline-block;
             background-color: #3498db;
             color: white;
             padding: 10px 20px;
             border: none;
-            border-radius: 4px;
+            border-radius: 10px;
             text-align: center;
             text-decoration: none;
             transition: background-color 0.3s ease;
@@ -43,8 +47,12 @@
 <body>
 
 <h2 class="welcome-text">Welcome to the Student Management System!</h2>
-<a th:href="@{/student}" class="manage-button">Manage Students</a>
+
+<div class="button-container">
+    <a th:href="@{/student}" class="manage-button">Manage Students</a>
+    <a th:href="@{/staff}" class="manage-button">Manage Staff</a>
+    <a th:href="@{/course}" class="manage-button">Manage Course</a>
+</div>
 
 </body>
 </html>
-
