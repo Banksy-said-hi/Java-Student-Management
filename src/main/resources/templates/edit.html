@@ -61,27 +61,45 @@
 </head>
 
 <body>
-<!-- Student Title -->
-<h1 th:if="${isStudent}">Editing student with ID: <span th:text="${student.id}"></span></h1>
-<!-- Staff Title -->
-<h1 th:unless="${isStudent}">Editing staff with ID: <span th:text="${staff.id}"></span></h1>
-<!--<h1>Editing student with ID: <span th:text="${studentId}"></span></h1>-->
+    <!-- Student Title -->
+    <h1 th:if="${isStudent}">Editing student with ID: <span th:text="${student.id}"></span></h1>
+    <!-- Staff Title -->
+    <h1 th:unless="${isStudent}">Editing staff with ID: <span th:text="${staff.id}"></span></h1>
 
-<!--<form th:action="@{/student/update}" method="post">-->
-<!--    <input type="hidden" id="id" th:name="id" th:value="${studentId}" required>-->
-<!--    <input type="hidden" th:name="matriculationNumber" th:value="${matriculationNumber}" />-->
+    <!-- Form for Students -->
+    <form th:if="${isStudent}" th:action="@{/student/update}" method="post">
+        <input type="hidden" id="id" th:name="id" th:value="${studentId}" required>
+        <input type="hidden" th:name="matriculationNumber" th:value="${matriculationNumber}" />
 
-<!--    <label for="name">Name:</label>-->
-<!--    <input type="text" id="name" th:field="*{student.name}" required>-->
+        <label for="name">Name:</label>
+        <input type="text" id="name" th:field="*{student.name}" required>
 
-<!--    <label for="phoneNumber">Phone Number:</label>-->
-<!--    <input type="text" id="phoneNumber" th:field="*{student.phoneNumber}" pattern="^\d+$" required>-->
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" th:field="*{student.phoneNumber}" pattern="^\d+$" required>
 
-<!--    <label for="emailAddress">Email Address:</label>-->
-<!--    <input type="email" id="emailAddress" th:field="*{student.emailAddress}"  required>-->
+        <label for="emailAddress">Email Address:</label>
+        <input type="email" id="emailAddress" th:field="*{student.emailAddress}" required>
 
-<!--    <input type="submit" value="Submit">-->
-<!--</form>-->
+        <input type="submit" value="Submit">
+    </form>
+
+    <!-- Form for Staff -->
+    <form th:unless="${isStudent}" th:action="@{/staff/update}" method="post">
+
+        <input type="hidden" id="id_1" th:name="id" th:value="${staffId}" required>
+        <input type="hidden" th:name="socialSecurity" th:value="${socialSecurity}" />
+
+        <label for="name_1">Name:</label>
+        <input type="text" id="name_1" th:field="*{staff.name}" required>
+
+        <label for="phoneNumber_1">Phone Number:</label>
+        <input type="text" id="phoneNumber_1" th:field="*{staff.phoneNumber}" pattern="^\d+$" required>
+
+        <label for="emailAddress_1">Email Address:</label>
+        <input type="email" id="emailAddress_1" th:field="*{staff.emailAddress}" required>
+
+        <input type="submit" value="Submit">
+    </form>
 </body>
 
 </html>

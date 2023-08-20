@@ -72,16 +72,9 @@ public class StaffController {
     public String editStaff(@PathVariable UUID id, Model model) {
 
         Staff staff = personService.findStaffById(id);
-//        System.out.println("Student: " + student);
 
         String socialSecurity = staff.getSocialSecurity();
 
-//        System.out.println("Student Matriculation Number: " + matriculationNumber);
-
-//        if (staff == null) {
-//            return "error";
-//        }
-//        model.addAttribute("isStaff", true);
         model.addAttribute("staff", staff);
         model.addAttribute("staffId", id);  // Add the person id separately
         model.addAttribute("socialSecurity", socialSecurity);  // Add the matriculation number separately
