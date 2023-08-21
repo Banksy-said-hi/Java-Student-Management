@@ -81,22 +81,29 @@
 
         table {
             width: 80%;
-            margin: 20px auto;
+            margin: 30px auto; /* Increased spacing for table */
             border-collapse: collapse;
         }
 
         table, td {
             border: 1px solid #3498db;
-            text-align: center; /* Centering the contents of the cells */
+            text-align: center;
+            border-radius: 5px; /* Rounded corners */
         }
 
         th {
             background-color: #3498db;
             color: white;
+            /*border-radius: 5px; !* Rounded corners for header *!*/
+            padding: 10px; /* More space for header */
         }
 
-        tr:nth-child(even) {
-            background-color: #f4f4f4;
+        td {
+            padding: 10px; /* More space for cells */
+        }
+
+        tr:hover {
+            background-color: #eaeaea; /* Hover effect for rows */
         }
 
         .btn {
