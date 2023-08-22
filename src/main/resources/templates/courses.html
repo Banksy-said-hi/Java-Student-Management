@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Courses</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        h1, h2 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            background: linear-gradient(45deg, #ecf0f1, #ffffff); /* subtle gradient */
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #3498db; /* Added a border */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            box-sizing: border-box;
+        }
+
+        label {
+            margin-top: 4px;  /* Further reduced margin */
+            margin-bottom: 2px;
+        }
+
+        label, input, select {
+            width: 100%;
+            padding: 4px;  /* Further reduced padding */
+            margin: 2px 0;  /* Further reduced margin */
+            display: block;
+            box-sizing: border-box;
+        }
+
+        select {
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+        }
+
+
+        input[type="submit"] {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 15px;
+            border-radius: 10px;
+            font-size: 18px;    /* Increase font size */
+            padding: 10px 20px; /* Adjust padding */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+
+        table {
+            width: 80%;
+            margin: 30px auto; /* Increased spacing for table */
+            border-collapse: collapse;
+        }
+
+        table, td {
+            border: 1px solid #3498db;
+            text-align: center;
+            border-radius: 5px; /* Rounded corners */
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+            /*border-radius: 5px; !* Rounded corners for header *!*/
+            padding: 10px; /* More space for header */
+        }
+
+        td {
+            padding: 10px; /* More space for cells */
+        }
+
+        tr:hover {
+            background-color: #eaeaea; /* Hover effect for rows */
+        }
+
+        .btn {
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            border: none;  /* Added to remove border */
+            outline: none;  /* Added to remove focus outline */
+            background-color: transparent;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .home-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #3498db;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .home-button:hover {
+            background-color: #2980b9;
+        }
+
+        .error-message {
+            background-color: #f44336;  /* Red background */
+            color: white;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .status-active {
+            color: blue;
+        }
+
+        .status-inactive {
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+        <a class="home-button" th:href="@{/}">Home</a>
+        <div th:if="${errorMessage}" class="error-message">
+            <p th:text="${errorMessage}"></p>
+        </div>
+        <form th:action="@{/course/create}" th:object="${course}" method="post">
+            <!-- Text input for course title -->
+            <label for="title">Course Title:</label>
+            <input type="text" id="title" th:field="*{title}" required>
+
+            <!-- Multiple choice for semester -->
+            <label for="semester">Choose a semester:</label>
+            <select id="semester" th:field="*{semester}">
+            <option value="WINTER">Winter</option>
+            <option value="SUMMER">Summer</option>
+            </select>
+
+            <!-- Multiple choice for state -->
+            <label for="state">Course State:</label>
+            <select id="state" th:field="*{state}">
+            <option value="ACTIVE">Active</option>
+            <option value="INACTIVE">Inactive</option>
+            </select>
+
+            <input type="submit" value="Create Course">
+        </form>
+        <table>
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Semester</th>
+                <th>State</th>
+                <th>ID</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="course : ${courses}">
+                <td>
+                    <a th:href="@{/course/{id}(id=${course.id})}" th:text="${course.title}"></a>
+                </td>
+<!--                <td th:text="${course.title}"></td>-->
+                <td th:text="${course.semester}"></td>
+                <td th:class="${course.state eq 'ACTIVE'} ? 'status-active' : 'status-inactive'" th:text="${course.state}"></td>
+                <td th:text="${course.id}"></td>
+                <td>
+                    <form th:action="@{/course/flipstatus}" method="post" style="display: inline-block;">
+                        <input type="hidden" name="courseId" th:value="${course.id}"/>
+                        <button class="btn" type="submit">CHANGE STATUS</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+</body>
+</html>

@@ -1,9 +1,11 @@
 package at.aau.studentevidence.persistence;
 
 import at.aau.studentevidence.domain.Course;
+import at.aau.studentevidence.domain.Student;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 
@@ -14,9 +16,24 @@ import java.util.Set;
 @Component
 public class InMemoryCourseRepository {
 
-    private final Set<Course> storage = new HashSet<>();
+    private final Set<Course> storage;
 
-    // Add or update a course
+    public InMemoryCourseRepository() {
+        storage  = new HashSet<>();
+        initData();
+    }
+
+    private void initData() {
+        Course course1 = new Course("MATHEMATICS", Course.Semester.WINTER);
+        Course course2 = new Course("PHYSICS", Course.Semester.SUMMER);
+        // Add more courses if needed
+
+        storage.add(course1);
+        storage.add(course2);
+        // Add other courses to the set
+    }
+
+
     public Course save(Course course) {
         storage.add(course);
         // Return the saved course
@@ -29,11 +46,15 @@ public class InMemoryCourseRepository {
     }
 
     // Find a course by its ID
-    public Optional<Course> findById(Long id) {
+    public Course findCourseById(String id) {
+//        System.out.println("REQUEST REACHED FIND COURSE BY ID METHOD OF STORAGE");
+//        System.out.println("(3) COURSE ID IS:" + id);
         return storage.stream()
                 .filter(course -> course.getId().equals(id))
-                .findFirst();
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("Course with ID " + id + " not found"));
     }
+
 
     // Delete a course
     public void delete(Course course) {

@@ -1,6 +1,8 @@
 package at.aau.studentevidence.controller;
 
+import at.aau.studentevidence.domain.Course;
 import at.aau.studentevidence.domain.Student;
+import at.aau.studentevidence.services.CourseService;
 import at.aau.studentevidence.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,15 +10,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 @Controller
 @RequestMapping("/student")
 public class StudentController {
 
     private final PersonService personService;
+    private final CourseService courseService;
 
     @Autowired
-    public StudentController(PersonService personService) {
+    public StudentController(PersonService personService, CourseService courseService) {
+        this.courseService = courseService;
         this.personService = personService;
     }
 
@@ -38,6 +43,36 @@ public class StudentController {
 
         return "edit";
     }
+
+//    @GetMapping("/enroll/{id}")
+//    public String pickCourse(@PathVariable UUID id, Model model) {
+//        System.out.println("PATH VARIABLE ID " + id);
+//
+//        // Fetching student and storing in model for further use
+//        Student student = personService.findStudentById(id);
+//        model.addAttribute("student", student);
+//
+//        // Fetching and attaching courses to the model for view use;
+//        Set<Course> allCourses = courseService.findAllCourses();
+//        model.addAttribute("courses", allCourses);
+//
+//        return "course";
+//    }
+//    @PostMapping("/pick")
+//    public String pickCourse(@RequestParam String courseId, @RequestParam UUID studentId) {
+//        // Find the course by its ID
+//        Course course = courseService.findCourseById(courseId);
+//
+//        // Get the student by its ID
+//        Student student = personService.findStudentById(studentId);
+//
+//        if (course != null && student != null) {
+//            // Add the student to the course's students set
+//            course.enrollStudent(student);
+//        }
+//
+//        return "course";
+//    }
 
     @PostMapping("/update")
     public String updateStudent(@ModelAttribute Student student, @RequestParam UUID id, @RequestParam String matriculationNumber) {

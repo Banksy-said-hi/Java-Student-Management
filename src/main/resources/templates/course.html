@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Courses</title>
+    <title>Enroll</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,76 +20,36 @@
             margin-bottom: 20px;
         }
 
-        form {
-            background: linear-gradient(45deg, #ecf0f1, #ffffff); /* subtle gradient */
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid #3498db; /* Added a border */
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            width: 350px;
-            box-sizing: border-box;
-        }
-
-        label {
-            margin-top: 4px;  /* Further reduced margin */
-            margin-bottom: 2px;
-        }
-
-        label, input, select {
-            width: 100%;
-            padding: 4px;  /* Further reduced padding */
-            margin: 2px 0;  /* Further reduced margin */
-            display: block;
-            box-sizing: border-box;
-        }
-
-        select {
-            border: 1px solid #bdc3c7;
-            border-radius: 5px;
-        }
-
-
-        input[type="submit"] {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 15px;
-            border-radius: 10px;
-            font-size: 18px;    /* Increase font size */
-            padding: 10px 20px; /* Adjust padding */
-        }
-
-        input[type="submit"]:hover {
-            background-color: #2980b9;
+        .tables-container, .teacher-container, .students-container {
+            display: flex;
+            justify-content: center;  /* Center the tables horizontally */
+            gap: 20px;  /* Spacing between the tables */
         }
 
         table {
-            width: 80%;
-            margin: 30px auto; /* Increased spacing for table */
+            width: 95%;
+            margin: 15px auto;
             border-collapse: collapse;
         }
 
         table, td {
             border: 1px solid #3498db;
             text-align: center;
-            border-radius: 5px; /* Rounded corners */
+            border-radius: 5px;
         }
 
         th {
             background-color: #3498db;
             color: white;
-            /*border-radius: 5px; !* Rounded corners for header *!*/
-            padding: 10px; /* More space for header */
+            padding: 10px;
         }
 
         td {
-            padding: 10px; /* More space for cells */
+            padding: 10px;
         }
 
         tr:hover {
-            background-color: #eaeaea; /* Hover effect for rows */
+            background-color: #eaeaea;
         }
 
         .btn {
@@ -100,78 +60,133 @@
             border: none;
             text-decoration: none;
             display: inline-block;
-            margin-right: 5px;
-        }
-
-        .home-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
             background-color: #3498db;
             color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            text-decoration: none;
             transition: background-color 0.3s ease;
-            font-size: 16px;
-            cursor: pointer;
         }
 
-        .home-button:hover {
+        .btn:hover {
             background-color: #2980b9;
         }
 
+        .status-active {
+            background-color: #2ecc71; /* Green for ACTIVE */
+            color: white;
+        }
+
+        .status-inactive {
+            background-color: #e74c3c; /* Red for INACTIVE */
+            color: white;
+        }
+
+        hr.custom-line {
+            width: 50%;  /* Adjust this to set the line's length */
+            border: none;
+            height: 1px; /* Adjust this to set the line's thickness */
+            background-color: #333;  /* Adjust this to set the line's color */
+            margin: 20px 0;  /* Add some space above and below the line */
+        }
     </style>
 </head>
+
 <body>
-        <a class="home-button" th:href="@{/}">Home</a>
-        <form th:action="@{/course/create}" th:object="${course}" method="post">
-            <!-- Text input for course title -->
-            <label for="title">Course Title:</label>
-            <input type="text" id="title" th:field="*{title}" required>
+<h1>course ID: <span th:text="${course.id}"></span></h1>
 
-            <!-- Multiple choice for semester -->
-            <label for="semester">Choose a semester:</label>
-            <select id="semester" th:field="*{semester}">
-            <option value="WINTER">Winter</option>
-            <option value="SUMMER">Summer</option>
-            </select>
+<div class="teacher-container">
+    <h2>Assigned Teacher</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${courseTeacher != null}">
+            <td th:text="${courseTeacher.name}"></td>
+            <td th:text="${courseTeacher.id}"></td>
+            <td>
+                <form th:action="@{/course/removeTeacher}" method="post" style="display: inline-block;">
+                    <input type="hidden" name="teacherId" th:value="${courseTeacher.id}"/>
+                    <input type="hidden" name="courseId" th:value="${course.id}"/>
+                    <button class="btn delete" type="submit" onclick="return confirm('Are you sure you want to remove this teacher from this course?');">Remove</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${courseTeacher == null}">
+            <td colspan="3">No teacher assigned</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
-            <!-- Multiple choice for state -->
-            <label for="state">Course State:</label>
-            <select id="state" th:field="*{state}">
-            <option value="ACTIVE">Active</option>
-            <option value="INACTIVE">Inactive</option>
-            </select>
-
-            <input type="submit" value="Create Course">
-        </form>
-        <table>
-            <thead>
-            <tr>
-                <th>Title</th>
-                <th>Semester</th>
-                <th>State</th>
-                <th>ID</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="course : ${courses}">
-                <td th:text="${course.title}"></td>
-                <td th:text="${course.semester}"></td>
-                <td th:text="${course.state}"></td>
-                <td th:text="${course.id}"></td>
-<!--                <td>-->
-<!--                    <form class="delete-form" th:action="@{/student/delete}" method="post" style="display: inline-block;">-->
-<!--                        <input type="hidden" name="id" th:value="${student.id}"/>-->
-<!--                        <button class="btn delete" type="submit" onclick="return confirm('Are you sure you want to delete this student?');">Delete</button>-->
-<!--                    </form>-->
-<!--                    <a class="btn edit" th:href="@{/student/edit/{id}(id=${student.id})}">Edit</a>-->
-<!--                </td>-->
-            </tr>
-            </tbody>
-        </table>
+<div class="students-container">
+    <h2>Registered Students</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>ID</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${courseStudents}">
+            <td th:text="${student.name}"></td>
+            <td th:text="${student.id}"></td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(courseStudents)}">
+            <td colspan="3">No students enrolled in this course</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<hr class="custom-line">
+<div class="tables-container">
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Social Security</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="staff : ${staffs}">
+            <td th:text="${staff.name}"></td>
+            <td th:text="${staff.socialSecurity}"></td>
+            <td>
+                <form class="delete-form" th:action="@{/course/assignTeacher}" method="post" style="display: inline-block;">
+                    <input type="hidden" name="staffId" th:value="${staff.id}"/>
+                    <input type="hidden" name="courseId" th:value="${course.id}"/>
+                    <button class="btn delete" type="submit" onclick="return confirm('Are you sure to assign this staff as the teacher?');">ADD</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Student Matriculation Number</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.name}"></td>
+            <td th:text="${student.matriculationNumber}"></td>
+            <td>
+                <form class="delete-form" th:action="@{/course/addStudent}" method="post" style="display: inline-block;">
+                    <input type="hidden" name="studentId" th:value="${student.id}"/>
+                    <input type="hidden" name="courseId" th:value="${course.id}"/>
+                    <button class="btn delete" type="submit" onclick="return confirm('Are you sure you to add this student to the course?');">ADD</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

@@ -11,11 +11,15 @@ import java.util.Set;
 
 @Service
 public class CourseService {
-
     private final InMemoryCourseRepository courseRepository;
     @Autowired
     public CourseService(InMemoryCourseRepository courseRepository) {
         this.courseRepository = courseRepository;
+    }
+
+    public void removeTeacherFromCourse(String courseId) {
+        Course course = courseRepository.findCourseById(courseId);
+        course.setTeacher(null);
     }
 
     // Service method to save a course
@@ -36,14 +40,27 @@ public class CourseService {
 
 
     // Service method to retrieve a course by its ID
-//    public Optional<Course> findCourseById(Long id) {
-//        return courseRepository.findById(id);
-//    }
+    public Course findCourseById(String id) {
+        return courseRepository.findCourseById(id);
+    }
 
     //Service method to retrieve all courses
     public Set<Course> findAllCourses() {
         return courseRepository.findAll();
     }
+
+    public void changeCourseStatus(String courseId) {
+        // 1. Fetch the course using the courseId
+        Course course = findCourseById(courseId);
+
+        // 2. Toggle the course's status
+        if(course.getState() == Course.State.ACTIVE) {
+            course.setState(Course.State.INACTIVE);
+        } else {
+            course.setState(Course.State.ACTIVE);
+        }
+    }
+
 
     // Service method to delete a course
 //    public void deleteCourse(Long id) {

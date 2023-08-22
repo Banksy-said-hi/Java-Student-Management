@@ -19,6 +19,30 @@ import java.util.stream.Collectors;
 @Component
 public class InMemoryPersonRepository {
     private final Set<Person> storage = new HashSet<>();
+//    public InMemoryPersonRepository() {
+//        storage
+//        initData();
+//    }
+
+//    private void initData() {
+//        Student student1 = new Student("SINA RAHIMI", "+989128153074", "sinarahimi.main@gmail.com") {
+//        };
+//        Student student2 = new Student("TRAVIS RICE", "+9822298928", "travis.rice@redbull.com"); {
+//        };
+//        Student student3 = new Student("SHAUN WHITE", "+4367764759319", "shaun.white@burton.com") {
+//        };
+//
+//
+//        Staff staff1 = new Staff("FELIX SCHNIZ", "+43883322392", "felix.schniz@aau.au.at");
+//
+//        storage.add(student1);
+//        storage.add(student2);
+//        storage.add(student3);
+//        storage.add(staff1);
+//
+//        // Add other people to the set
+//    }
+
 
     public List<Person> findAll() { return new ArrayList<>(storage);}
 
