@@ -24,7 +24,7 @@
             background: linear-gradient(45deg, #ecf0f1, #ffffff); /* subtle gradient */
             padding: 30px;
             border-radius: 15px;
-            border: 1px solid #3498db; /* Added a border */
+            /*border: 1px solid #3498db; !* Added a border *!*/
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             width: 350px;
             box-sizing: border-box;
@@ -85,7 +85,8 @@
         }
 
         td {
-            padding: 10px; /* More space for cells */
+            text-align: center;
+            vertical-align: middle;
         }
 
         tr:hover {
@@ -97,12 +98,17 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 12px;
-            border: none;  /* Added to remove border */
-            outline: none;  /* Added to remove focus outline */
-            background-color: transparent;
+            border: none;
             text-decoration: none;
             display: inline-block;
-            margin-right: 5px;
+            background-color: #3498db;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:focus {
+            box-shadow: none;
+            outline: none;
         }
 
         .home-button {
@@ -133,12 +139,8 @@
             text-align: center;
         }
 
-        .status-active {
-            color: blue;
-        }
-
-        .status-inactive {
-            color: red;
+        .action-header {
+            width: 120px;  /* or any other desired width */
         }
 
     </style>
@@ -174,9 +176,9 @@
             <tr>
                 <th>Title</th>
                 <th>Semester</th>
-                <th>State</th>
+                <th>Status</th>
                 <th>ID</th>
-                <th>Action</th>
+                <th class="action-header">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -186,12 +188,12 @@
                 </td>
 <!--                <td th:text="${course.title}"></td>-->
                 <td th:text="${course.semester}"></td>
-                <td th:class="${course.state eq 'ACTIVE'} ? 'status-active' : 'status-inactive'" th:text="${course.state}"></td>
+                <td th:text="${course.state}"></td>
                 <td th:text="${course.id}"></td>
                 <td>
-                    <form th:action="@{/course/flipstatus}" method="post" style="display: inline-block;">
+                    <form th:action="@{/course/flipstatus}" method="post">
                         <input type="hidden" name="courseId" th:value="${course.id}"/>
-                        <button class="btn" type="submit">CHANGE STATUS</button>
+                        <button class="btn delete" type="submit">CHANGE STATUS</button>
                     </form>
                 </td>
             </tr>
