@@ -23,7 +23,6 @@ public class CourseController {
     private final CourseService courseService;
     private final PersonService personService;
 
-
     @Autowired
     public CourseController(CourseService courseService, PersonService personService) {
         this.personService = personService;
@@ -39,7 +38,6 @@ public class CourseController {
     @GetMapping ("{id}")
     public String coursePage(@PathVariable String id, Model model) {
         // Fetch the course using the provided ID
-        System.out.println("COURSE ID: " + id);
         Course course = courseService.findCourseById(id);
 
         // Fetch students and staff associated with the specific course
@@ -57,6 +55,7 @@ public class CourseController {
         model.addAttribute("course", course);
         model.addAttribute("students", allStudents);
         model.addAttribute("staffs", allStaff);
+
         // Return the course details view
         return "course";
     }
@@ -65,39 +64,35 @@ public class CourseController {
     public ModelAndView assignTeacherToCourse(@RequestParam String courseId, @RequestParam UUID staffId) {
         // Fetch the course by its ID
         Course course = courseService.findCourseById(courseId);
-        System.out.println("THE FOUND COURSE IS " + course);
+
         // Fetch the student by its ID
         Staff staff = personService.findStaffById(staffId);
-        System.out.println("THE FOUND STAFF IS " + staff);
 
         // Add student to the course
         course.setTeacher(staff);
-        System.out.println("GETTING THE COURSE TEACHER " + course.getTeacher());
 
         // Redirect back to the course page (or wherever you'd like)
         return new ModelAndView("redirect:/course/" + courseId);
     }
+
     @PostMapping("/removeTeacher")
     public String removeTeacher(@RequestParam String courseId) {
 
         courseService.removeTeacherFromCourse(courseId);
+
         return "redirect:/course/" + courseId;
     }
-
-
 
     @PostMapping("/addStudent")
     public ModelAndView addStudentToCourse(@RequestParam String courseId, @RequestParam UUID studentId) {
         // Fetch the course by its ID
         Course course = courseService.findCourseById(courseId);
-        System.out.println("THE FOUND COURSE IS " + course);
+
         // Fetch the student by its ID
         Student student = personService.findStudentById(studentId);
-        System.out.println("THE FOUND STUDENT IS " + student);
 
         // Add student to the course
         course.addStudent(student);
-        System.out.println("GETTING THE COURSE STUDENTS " + course.getStudents());
 
         // Redirect back to the course page (or wherever you'd like)
         return new ModelAndView("redirect:/course/" + courseId);

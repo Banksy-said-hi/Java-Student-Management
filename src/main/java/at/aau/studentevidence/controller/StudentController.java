@@ -27,14 +27,9 @@ public class StudentController {
 
     @GetMapping("/edit/{id}")
     public String editStudent(@PathVariable UUID id, Model model) {
-        System.out.println("request reached editStudent controller");
-
         Student student = personService.findStudentById(id);
-        System.out.println("Student: " + student);
 
         String matriculationNumber = student.getMatriculationNumber();
-        System.out.println("Student Matriculation Number: " + matriculationNumber);
-
 
         model.addAttribute("isStudent", true);
         model.addAttribute("student", student);
@@ -44,40 +39,8 @@ public class StudentController {
         return "edit";
     }
 
-//    @GetMapping("/enroll/{id}")
-//    public String pickCourse(@PathVariable UUID id, Model model) {
-//        System.out.println("PATH VARIABLE ID " + id);
-//
-//        // Fetching student and storing in model for further use
-//        Student student = personService.findStudentById(id);
-//        model.addAttribute("student", student);
-//
-//        // Fetching and attaching courses to the model for view use;
-//        Set<Course> allCourses = courseService.findAllCourses();
-//        model.addAttribute("courses", allCourses);
-//
-//        return "course";
-//    }
-//    @PostMapping("/pick")
-//    public String pickCourse(@RequestParam String courseId, @RequestParam UUID studentId) {
-//        // Find the course by its ID
-//        Course course = courseService.findCourseById(courseId);
-//
-//        // Get the student by its ID
-//        Student student = personService.findStudentById(studentId);
-//
-//        if (course != null && student != null) {
-//            // Add the student to the course's students set
-//            course.enrollStudent(student);
-//        }
-//
-//        return "course";
-//    }
-
     @PostMapping("/update")
     public String updateStudent(@ModelAttribute Student student, @RequestParam UUID id, @RequestParam String matriculationNumber) {
-        System.out.println("received student at update Controller" + student);
-
         // manually setting the id and matriculation number of the student
         student.setId(id);
         student.setMatriculationNumber(matriculationNumber);
@@ -139,6 +102,7 @@ public class StudentController {
     @PostMapping("/delete")
     public String deleteStudent(@RequestParam UUID id) {
         personService.removePerson(id.toString());
+
         return "redirect:/student";  // Redirect back to the students list page
     }
 }

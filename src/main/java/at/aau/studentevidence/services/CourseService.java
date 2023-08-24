@@ -60,12 +60,4 @@ public class CourseService {
             course.setState(Course.State.ACTIVE);
         }
     }
-
-
-    // Service method to delete a course
-//    public void deleteCourse(Long id) {
-//        courseRepository.deleteById(id);
-//    }
-
-    // Add more methods here as needed.
 }

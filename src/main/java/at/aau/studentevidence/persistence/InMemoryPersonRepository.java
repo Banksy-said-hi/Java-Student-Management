@@ -19,33 +19,8 @@ import java.util.stream.Collectors;
 @Component
 public class InMemoryPersonRepository {
     private final Set<Person> storage = new HashSet<>();
-//    public InMemoryPersonRepository() {
-//        storage
-//        initData();
-//    }
-
-//    private void initData() {
-//        Student student1 = new Student("SINA RAHIMI", "+989128153074", "sinarahimi.main@gmail.com") {
-//        };
-//        Student student2 = new Student("TRAVIS RICE", "+9822298928", "travis.rice@redbull.com"); {
-//        };
-//        Student student3 = new Student("SHAUN WHITE", "+4367764759319", "shaun.white@burton.com") {
-//        };
-//
-//
-//        Staff staff1 = new Staff("FELIX SCHNIZ", "+43883322392", "felix.schniz@aau.au.at");
-//
-//        storage.add(student1);
-//        storage.add(student2);
-//        storage.add(student3);
-//        storage.add(staff1);
-//
-//        // Add other people to the set
-//    }
-
 
     public List<Person> findAll() { return new ArrayList<>(storage);}
-
 
     // INPUT SANITIZATION REQUIRED
     public Boolean addPerson(Person person) {
@@ -55,7 +30,6 @@ public class InMemoryPersonRepository {
     public void removePersonById(UUID id) {
         storage.removeIf(person -> id.equals(person.getId()));
     }
-
 
     public boolean updatePerson(Person personToUpdate) {
         Person personToRemove = null;
@@ -137,12 +111,6 @@ public class InMemoryPersonRepository {
     public boolean personExistsById(UUID id) {
         return storage.stream().anyMatch(person -> id.equals(person.getId()));
     }
-
-//    public boolean doesMatriculationNumberExist(String matriculationNumber) {
-//        return storage.stream()
-//                .filter(person -> person instanceof Student) // Filter only instances of Student
-//                .anyMatch(student -> matriculationNumber.equals(((Student) student).getMatriculationNumber()));
-//    }
 }
 
 

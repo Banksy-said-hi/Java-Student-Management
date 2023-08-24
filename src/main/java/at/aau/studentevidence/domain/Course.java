@@ -107,7 +107,7 @@ public class Course {
                 ", title='" + title + '\'' +
                 ", semester=" + semester +
                 ", state=" + state +
-                ", students=" + students.size() +  // Just showing the count of students
+                ", students=" + students.size() +
                 ", teacher=" + (teacher != null ? teacher.getName() : "No teacher assigned") +  // assuming Staff has a getName method
                 '}';
     }

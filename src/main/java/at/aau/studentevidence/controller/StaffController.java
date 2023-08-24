@@ -16,12 +16,10 @@ import java.util.UUID;
 @RequestMapping("/staff")
 public class StaffController {
     private final PersonService personService;
-
     @Autowired
     public StaffController(PersonService personService) {
         this.personService = personService;
     }
-
 
     @GetMapping
     public String displayAllStaff(Model model) {
@@ -65,6 +63,7 @@ public class StaffController {
     @PostMapping("/delete")
     public String deleteStaff(@RequestParam UUID id) {
         personService.removePerson(id.toString());
+
         return "redirect:/staff";  // Redirect back to the students list page
     }
 
@@ -84,8 +83,6 @@ public class StaffController {
 
     @PostMapping("/update")
     public String updateStaff(@ModelAttribute Staff staff, @RequestParam UUID id, @RequestParam String socialSecurity) {
-//        System.out.println("received student at update Controller" + staff);
-
         // manually setting the id and matriculation number of the staff
         staff.setId(id);
         staff.setSocialSecurity(socialSecurity);

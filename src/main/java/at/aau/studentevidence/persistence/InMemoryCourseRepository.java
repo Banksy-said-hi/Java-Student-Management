@@ -16,23 +16,20 @@ import java.util.Set;
 @Component
 public class InMemoryCourseRepository {
 
-    private final Set<Course> storage;
+    private final Set<Course> storage = new HashSet<>();
 
-    public InMemoryCourseRepository() {
-        storage  = new HashSet<>();
-        initData();
-    }
+//    public InMemoryCourseRepository() {
+//        storage  = new HashSet<>();
+//        initData();
+//    }
 
-    private void initData() {
-        Course course1 = new Course("MATHEMATICS", Course.Semester.WINTER);
-        Course course2 = new Course("PHYSICS", Course.Semester.SUMMER);
-        // Add more courses if needed
-
-        storage.add(course1);
-        storage.add(course2);
-        // Add other courses to the set
-    }
-
+//    private void initData() {
+//        Course course1 = new Course("MATHEMATICS", Course.Semester.WINTER);
+//        Course course2 = new Course("PHYSICS", Course.Semester.SUMMER);
+//
+//        storage.add(course1);
+//        storage.add(course2);
+//    }
 
     public Course save(Course course) {
         storage.add(course);
@@ -47,8 +44,6 @@ public class InMemoryCourseRepository {
 
     // Find a course by its ID
     public Course findCourseById(String id) {
-//        System.out.println("REQUEST REACHED FIND COURSE BY ID METHOD OF STORAGE");
-//        System.out.println("(3) COURSE ID IS:" + id);
         return storage.stream()
                 .filter(course -> course.getId().equals(id))
                 .findFirst()

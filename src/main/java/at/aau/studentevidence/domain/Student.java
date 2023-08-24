@@ -23,23 +23,10 @@ public class Student extends Person {
         return matriculationNumber;
     }
 
-//    private String generateMatriculationNumber() {
-//        String namePrefix = this.getName().length() >= 3 ? this.getName().substring(0, 3).toUpperCase() : this.getName().toUpperCase();
-//
-//        // Generate a random number, e.g., between 1000 and 9999.
-//        int randomNumber = 1000 + random.nextInt(9000);
-//
-//        matriculationNumber = "STU" + "-" + namePrefix + "/" + randomNumber;
-//
-//        return matriculationNumber;
-//    }
-
-
     // Getter for matriculationNumber
     public String getMatriculationNumber() {
         return matriculationNumber;
     }
-
 
     @Override
     public boolean equals(Object o) {
